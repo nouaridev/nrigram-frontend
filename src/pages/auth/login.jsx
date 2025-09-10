@@ -2,18 +2,27 @@ import { useState } from "react";
 import FormInput from "../../components/common/FormInput/FormInput";
 import styles from '../../styles/auth.module.css' ; 
 import logo from'../../assets/logo.png'
-import { Link } from "react-router-dom";
+import { Link, replace, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../contexts/athContext";
-
+import cookies from 'js-cookies';
+import { useLoader } from "../../contexts/loaderContext";
+import Loader from "../../components/layout/loader";
 export default function Login() {
+  const navigate = useNavigate() ;
+  const location = useLocation(); 
+  const from = location.state?.from?.pathname || '/' ;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  let [auth ,setAuth] = useAuth();
+  
+  const [auth ,setAuth] = useAuth() ;
+  const [err , setError] = useState('');
+  const [loading ,setLoading] = useLoader() ;
 
   const login = async()=>{
     try {
+      setLoading(true)
         let data = {
             email , password
         }
@@ -26,13 +35,20 @@ export default function Login() {
                 user: res.data.user 
              }
             })
+            cookies.setItem('token' , res.data.token) 
+            navigate(from  , {replace : true});
         }
-    } catch (error) {
-        console.log(error)
+        setLoading(false)
+      } catch (error) {
+        setLoading(false)
+        console.log(error) ;
+        setError(error.response.data.error)
     }
   }
-  return (
-    <div className={styles.holder}>
+  return  (
+    <>
+      <Loader></Loader>
+     <div className={styles.holder}>
       <div className={styles.loginLayout}>
         <div className={styles.formSide}>
           <img src={logo} alt=""  className={styles.logo}/>
@@ -61,10 +77,14 @@ export default function Login() {
             <div className={styles.formButton} onClick={login}>
                 LOG IN
             </div>
+            {err && <div className={styles.formError}>{err}</div>}
+
             <Link to='/signup' className={styles.formLink}>U DONT HAVE AN ACCOUNT ?</Link>
           </form>
         </div>
       </div>
     </div>
+    </>
+   
   );
 }

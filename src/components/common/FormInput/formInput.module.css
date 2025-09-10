@@ -43,3 +43,14 @@
 }
 
 
+@media (max-width: 475px) {
+    .formInputHolder input{
+        border-radius: 8px;
+        font-size: 10px;
+        padding: 10px 15px;
+    }
+    .formInputHolder label{
+        font-size: 8px;
+    }
+
+}
