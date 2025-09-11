@@ -1,0 +1,42 @@
+  /* conversation inputs */
+.conversationInputs{
+    background-color: var(--primary-bg-gray);
+    border-radius: 19px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+.conversationInputs .left {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+.conversationInputs .left .imageInput input{
+    position: absolute;
+    z-index: -10;
+  }
+.conversationInputs .left .imageInput .imageIcon{
+    color: var(--secondary-blue);
+    font-size: 20px;
+  }
+.conversationInputs .left .imageInput .imageIcon:hover{
+    color: var(--primary-blue);
+  }
+.conversationInputs .center{
+    flex-grow: 2;
+    padding: 0 20px;
+  }
+.conversationInputs input{
+    padding-bottom: 3px;
+    font-weight: bold;
+    font-size: 12px;
+    width: 100%;
+  }
+.conversationInputs .right{
+    padding: 3px 10px  0   ;
+    cursor: pointer;
+  }
+.conversationInputs .right .send{
+    color: var(--primary-blue);
+  }
