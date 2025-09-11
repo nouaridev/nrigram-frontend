@@ -5,6 +5,7 @@
     background-color: var(--primary-bg-gray);
     border-radius: 19px;
     flex-grow: 1;
+    border-radius: 19px;
   }
  .conversationNav .left{
     display: flex;

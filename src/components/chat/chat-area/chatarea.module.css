@@ -1,0 +1,138 @@
+.chatArea {
+    flex: 1; 
+    margin-left: 10px;
+    background-color: var(--white-bg);
+    border-radius: 19px;
+    box-shadow: 0px 0px 1px var(--secondary-text-gray);
+    transition: 0.1s all ease;
+}
+.chatArea:hover{
+    box-shadow: 0px 0px 2px var(--secondary-text-gray);
+    transform: scale(1.01);
+}
+
+
+.chatArea .conversationOpened{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.chatArea .conversationOpened .conversationMessages{
+    flex-grow: 4;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+        /* Chrome, Edge, Safari */
+.conversationMessages::-webkit-scrollbar {
+    width: 0px; 
+}
+
+.conversationMessages::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+/* empty chat area */
+.EmptyChatArea{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.EmptyChatArea .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.EmptyChatArea .content h1{
+    font-size: 4vw;
+    color: var(--secondary-blue);
+    padding-bottom: 20px;
+}
+
+/* new chat  */
+.newChatArea{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.newChatArea .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.newChatArea .content img{
+    width: 30vh;
+}
+.newChatArea .content h1{
+    font-size: 22px;
+    color: var(--secondary-blue);
+    padding-bottom: 10px;
+    text-align: center;
+}
+.newChatArea .content h2{
+    text-align: center;
+    font-size: 20px;
+    color: var(--secondary-blue);
+    padding-bottom: 10px;
+}
+
+@media (max-width: 376px) {
+    .newChatArea .content h1{
+        font-size: 12px;
+ 
+    }
+    .newChatArea .content h2{
+        font-size: 10px;
+    
+    }
+}
+@media (max-width: 426px) {
+    .newChatArea .content h1{
+        font-size: 14px;
+ 
+    }
+    .newChatArea .content h2{
+        font-size: 12px;
+    
+    }
+}
+@media (max-width: 769px) {
+    .newChatArea .content h1{
+        font-size: 16px;
+ 
+    }
+    .newChatArea .content h2{
+        font-size: 14px;
+    
+    }
+}
+@media (max-width: 1025px) {
+    .newChatArea .content h1{
+        font-size: 18px;
+ 
+    }
+    .newChatArea .content h2{
+        font-size: 16px;
+    
+    }
+}
+@media (max-width: 1441px) {
+    .newChatArea .content h1{
+        font-size: 20px;
+ 
+    }
+    .newChatArea .content h2{
+        font-size: 18px;
+    
+    }
+}

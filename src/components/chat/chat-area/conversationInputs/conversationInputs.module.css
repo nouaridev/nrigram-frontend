@@ -6,6 +6,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    height: fit-content;
   }
 .conversationInputs .left {
     display: flex;
@@ -15,6 +16,7 @@
 .conversationInputs .left .imageInput input{
     position: absolute;
     z-index: -10;
+    width: 10px;
   }
 .conversationInputs .left .imageInput .imageIcon{
     color: var(--secondary-blue);
@@ -26,15 +28,18 @@
 .conversationInputs .center{
     flex-grow: 2;
     padding: 0 20px;
+    display: flex;
+    align-items: center;
   }
-.conversationInputs input{
-    padding-bottom: 3px;
+.conversationInputs textarea{
     font-weight: bold;
     font-size: 12px;
     width: 100%;
+    resize: none;
+    overflow: hidden;
   }
 .conversationInputs .right{
-    padding: 3px 10px  0   ;
+    padding: 0 10px;
     cursor: pointer;
   }
 .conversationInputs .right .send{

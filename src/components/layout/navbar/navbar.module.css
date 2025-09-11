@@ -1,0 +1,98 @@
+/* nav bar */
+  .navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;    
+    transition: 0.1s all ease;
+  }
+
+  .navbar .left {
+    width: 200px;
+  }
+  .navbar .left img{
+    width: 120px;
+    margin: auto;
+    cursor: pointer;
+    animation: grow 1s linear 0s infinite  alternate-reverse;
+
+  }
+  @keyframes grow {
+    form{
+      transform: scale(1);
+    }
+    to{
+      transform: scale(1.07);
+    }
+  }
+  .navbar .center {
+    display:  flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
+    padding: 0 10px;
+  }
+  .navbar .center .helpIcon{
+    color: var(--primary-blue);
+    cursor: pointer;
+    font-size: 20px;
+    padding-left: 10px;
+  }
+  .navbar .center .helpIcon:hover{
+    color: var(--secondary-blue);
+  }
+
+
+  
+  .navbar .right{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+
+  .navbar .right .toggleDarkMode .sunIcon{
+    color: var(--orange);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    background-color: var(--seconday-bg-gray);
+    border-radius: 50%;
+    margin: 5px 10px 0 0 ;
+  }
+  .navbar .right .showNotfications {
+   width: fit-content;
+   margin: 5px 10px 0 0;
+   position: relative; 
+  }
+  .navbar .right .showNotfications .new{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--green);
+    position: absolute; 
+  }
+  .navbar .right .showNotfications .notIcon{
+    color: var(--primary-blue);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    background-color: var(--seconday-bg-gray);
+    border-radius: 50%;
+  }
+  .navbar .right .showNotfications .notIcon:hover{
+    color: var(--secondary-blue);
+  }
+  .navbar .right img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: 0.1s;
+    box-shadow: 1px 1px 5px var(--secondary-text-gray);
+  }
+  .navbar .right img:hover{
+    border: 3px solid var(--primary-blue);
+  }
+  

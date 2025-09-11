@@ -1,14 +1,28 @@
 
+import { Outlet } from "react-router-dom";
 import ChatArea from "../components/chat/chat-area/chatArea";
-import ConversationsBar from "../components/layout/conversationsBar";
-import NavBar from "../components/layout/navBar";
+import ConversationsBar from "../components/layout/conversationBar/conversationsBar";
+import NavBar from "../components/layout/navbar/navBar";
+import '../styles/global.css'
+import Loader from "../components/layout/loader";
+import { useLoader } from "../contexts/loaderContext";
 
 export default function ChatServer(){
-    return <div className="layout">
-                <NavBar></NavBar>
-                <div className="main">
-                    <ConversationsBar></ConversationsBar>
-                    <ChatArea></ChatArea>
+    const [loading , setLoading] = useLoader()
+    return <div className="pageBody">
+            <div className="content">
+                <div className="layout">
+                    <NavBar></NavBar>
+                    <div className="main">
+                        <ConversationsBar></ConversationsBar>
+                        <Outlet></Outlet>
+                    </div>
                 </div>
             </div>
+        {loading && <Loader></Loader>}
+            </div>
 }
+
+
+
+    

@@ -12,7 +12,7 @@ export default function ConversationInput(){
               </div>
             </div>
             <div className={styles.center}>
-              <input type="text"  placeholder="write a message"/>
+              <textarea name="" id=""  rows='1' placeholder='Write a message' onChange={e=>console.log(e.target.value)}></textarea>
             </div>
             <div className={styles.right}>
               <FontAwesomeIcon icon={faPaperPlane} className={styles.send}/>
