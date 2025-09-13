@@ -1,27 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ConversationCard from "./conversationsCard";
-import axios from "axios";
 import { useAuth } from "../../../contexts/athContext";
 
 import styles from './conversationsbar.module.css' ; 
+import api from "../../../services/api";
 export default function ConversationsBar(){
   const [auth , setAuth] = useAuth(); 
   const [conversations , setConversations] = useState([]); 
   useEffect(()=>{
     const getConversations = async()=>{
       try {
-        let res = await axios.get('http://localhost:3000/api/main/conversations', {
+        let res = await api.get('/main/conversations', {
           headers:{
             Authorization: 'Bearer '+ auth.token
           }
         }) ;
-        console.log(res) 
+        if(res.status == 200){
+          setConversations(res.data.conversations) ;
+        }
       } catch (error) {
-        console.log(err)
+        console.log(error)
       }
     }
-    // getConversations() ;
+    getConversations() ;
   },[])
+
+  const conversationPrint = useMemo(()=>{
+    let convrs = conversations.map(e=>{
+      return <ConversationCard key={e._id} conversation={e}></ConversationCard>
+    })
+    return convrs
+  },[conversations])
   // get conversations : 
 
     return <div className={styles.conversationBar}>
@@ -32,17 +41,7 @@ export default function ConversationsBar(){
             </div>
             
             <div style={{paddingTop: '10px'}} className={styles.conversations}>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
-               <ConversationCard></ConversationCard>
+              {conversationPrint}
             </div>
     </div>
 }

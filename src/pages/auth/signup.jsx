@@ -5,7 +5,6 @@ import Loader from "../../components/layout/loader";
 
 // libs
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState } from "react";
 import cookies from 'js-cookies'
 
@@ -18,6 +17,7 @@ import {faCircleXmark ,faCamera, faIgloo, faDigitalTachograph} from '@fortawesom
 import pfp from '../../assets/illustrations/pfp.svg';
 import logo from "../../assets/logo.png";
 import { useLoader } from "../../contexts/loaderContext";
+import api from "../../services/api";
 
 
 export default function SignUp() {
@@ -69,7 +69,7 @@ export default function SignUp() {
       let inpt = document.querySelector('.pfpinput') ; 
       if(inpt.files[0]){data.append('file' ,inpt.files[0])}
         
-      let res = await axios.post("http://localhost:3000/api/user/signup", data);
+      let res = await api.post("/user/signup", data);
       if (res.status == 200) {
         console.log(res);
         setAuth((prev) => {

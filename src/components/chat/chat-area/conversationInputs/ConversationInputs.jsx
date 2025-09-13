@@ -2,30 +2,35 @@ import styles from "./conversationInputs.module.css";
 // font awesome icons && images
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { useSocket } from "../../../../contexts/socketIo";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAuth } from "../../../../contexts/athContext";
+import { useSocket } from "../../../../contexts/socketIo";
+import api from "../../../../services/api";
 
-export default function ConversationInput({ recipientId }) {
+export default function ConversationInput({conversationState,recipientId}) {
   const [auth, setAuth] = useAuth();
-  const socket = useSocket();
   const [inputValue, setInputValue] = useState("");
-  useEffect(() => {
-    socket.on("recieveMessage", (msg) => {
-      console.log('emeee')
-    });
-    socket.on('onlineStatus' , (dd)=>console.log(dd))
-  }, [socket]);
-  const joinConvetsation = (id)=>{
-    socket.emit('joinConversation' , id)
+
+  const [openedConversation , setOpenedConversatoin] = conversationState ;
+
+  const socket = useSocket()
+
+
+
+  const typing = ()=>{
+    socket.emit("writing" , {conversationId : openedConversation ,userId: auth.user.id, isTyping: true})
   }
+  const stopTyping = ()=>{
+    socket.emit("writing" , {conversationId : openedConversation ,userId: auth.user.id, isTyping: false})
+  }
+
+  
 
   const sendMessage = async () => {
     try {
       if(!inputValue || inputValue === ''){return} 
-      let res =await axios.post(
-        "http://localhost:3000/api/main/messages",
+      let res =await api.post(
+        "/main/messages",
         {
           content : inputValue ,
           recipientId
@@ -38,12 +43,21 @@ export default function ConversationInput({ recipientId }) {
         }
       );
       if(res.status == 200){
-        joinConvetsation(res.data.message.conversation)
+        if(!openedConversation){
+          setOpenedConversatoin(res.data.message.conversation)
+        }
       }
+      
     } catch (error) {
       console.log(error);
+    } finally {
+      setInputValue('')
     }
   };
+
+
+
+
   return (
     <div className={styles.conversationInputs}>
       <div className={styles.left}>
@@ -65,7 +79,11 @@ export default function ConversationInput({ recipientId }) {
           rows="1"
           value={inputValue}
           placeholder="Write a message"
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value)
+          }}
+          onFocus={typing}
+          onBlur={stopTyping}
         ></textarea>
       </div>
       <div className={styles.right} onClick={sendMessage}>

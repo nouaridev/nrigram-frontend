@@ -8,7 +8,6 @@ import ChatArea from './components/chat/chat-area/chatArea';
 import EmptyChatArea from './components/chat/chat-area/emptyChatArea'
 import NewChatArea from './components/chat/chat-area/newChatArea'
 function App() {
-  const [value , setValue] = useState('')
   return (
     <Routes>
       <Route  path='/login' element={<Login></Login>}/>

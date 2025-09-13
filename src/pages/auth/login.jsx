@@ -3,11 +3,11 @@ import FormInput from "../../components/common/FormInput/FormInput";
 import styles from '../../styles/auth.module.css' ; 
 import logo from'../../assets/logo.png'
 import { Link, replace, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../../contexts/athContext";
 import cookies from 'js-cookies';
 import { useLoader } from "../../contexts/loaderContext";
 import Loader from "../../components/layout/loader";
+import api from "../../services/api";
 export default function Login() {
   const navigate = useNavigate() ;
   const location = useLocation(); 
@@ -26,7 +26,7 @@ export default function Login() {
         let data = {
             email , password
         }
-        let res = await axios.post('http://localhost:3000/api/user/signin' ,data) ; 
+        let res = await api.post('/user/signin' ,data) ; 
         if(res.status == 200){
             console.log(res)
             setAuth(prev=>{

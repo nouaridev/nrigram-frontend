@@ -30,8 +30,10 @@
     padding: 10px;
     font-size: 12px;
     border-radius: 9px;
-
-}
+    max-width: 300px;
+    white-space: wrap;
+    overflow-wrap: break-word;
+    }
 .local .content{
     background-color: var(--primary-blue);
     color: var(--white-bg);
@@ -49,4 +51,19 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+
+
+/* HTML: <div class="loader"></div> */
+.dots {
+  width: 7px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 10px 0 var(--primary-blue), -10px 0 #0002;background: var(--primary-blue) }
+    33% {box-shadow: 10px 0 var(--primary-blue), -10px 0 #0002;background: #0002}
+    66% {box-shadow: 10px 0 #0002,-10px 0 var(--primary-blue); background: #0002}
+    100%{box-shadow: 10px 0 #0002,-10px 0 var(--primary-blue); background: var(--primary-blue) }
 }

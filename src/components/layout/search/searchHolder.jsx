@@ -7,9 +7,9 @@ import styles from './search.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-import axios from "axios";
 
 import UserCard from "./userCard";
+import api from "../../../services/api";
 
 export default function SearchHolder(){
     const [showResutlCard , setshowResultCard] = useState(false) ; 
@@ -38,7 +38,7 @@ export default function SearchHolder(){
     
     const Search = async()=>{  
         try {
-            let res = await axios.get(`http://localhost:3000/api/main/search?term=${searchVal}&type=people`,{
+            let res = await api.get(`/main/search?term=${searchVal}&type=people`,{
             headers:{
                 Authorization: 'Bearer '+ auth.token 
             }
