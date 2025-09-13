@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import ConversationCard from "./conversationsCard";
-import io from 'socket.io-client'
 import axios from "axios";
 import { useAuth } from "../../../contexts/athContext";
-const socket = io('http://localhost:3000') ; 
 
 import styles from './conversationsbar.module.css' ; 
 export default function ConversationsBar(){

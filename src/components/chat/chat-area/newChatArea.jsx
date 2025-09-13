@@ -17,7 +17,6 @@ export default function NewChatArea(){
   const [loading , setLoading] = useLoader();  
 
   const {userid} = useParams() ;
-  console.log(userid)
 
   useEffect(()=>{
     const getUser = async()=>{
@@ -28,7 +27,6 @@ export default function NewChatArea(){
                     Authorization: 'bearer ' + auth.token
                 }})
             if(res.status == 200){
-                console.log(res)
                 setRecipient(()=>res.data.user)
             }
         } catch (error) {
@@ -39,6 +37,8 @@ export default function NewChatArea(){
     }
     getUser(); 
   },[userid])
+
+  
 
     return recipient && <div className={styles.chatArea}>
       
@@ -52,7 +52,7 @@ export default function NewChatArea(){
                   </div>
             </div>
      
-        <ConversationInput></ConversationInput>
+        <ConversationInput recipientId={userid}></ConversationInput>
       </div>
     </div>
 }
