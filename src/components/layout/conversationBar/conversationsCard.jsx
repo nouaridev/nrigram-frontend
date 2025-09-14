@@ -25,7 +25,7 @@ export default function ConversationCard({conversation}) {
     console.log(conversation)
 
     const openConversation = ()=>{
-      navigate('/searchchat/'+participant._id)
+      navigate('/chat/'+participant._id)
     }
 
     let active  = true ;

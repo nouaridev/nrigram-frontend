@@ -4,7 +4,7 @@ export default function UserCard({clear,id , pfp , userName , email}){
     const navigate = useNavigate() ;
     const openChat = ()=>{
         clear()
-        navigate(`searchchat/${id}`)
+        navigate(`chat/${id}`)
     }
     return<div className={styles.card} key={id} onClick={openChat}>
                   <div className={styles.pfp}><img src={pfp} alt="" /></div>

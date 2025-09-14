@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/athContext"
 import cookies from 'js-cookies';
 import { useEffect, useState } from "react";
 import PageLoader from "../../components/layout/pageLoader";
-import api from "../../services/api";
+import api from "../api";
 
 export default function RequireAuth(){
     let location = useLocation() ;

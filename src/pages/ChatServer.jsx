@@ -1,6 +1,5 @@
 
 import { Outlet } from "react-router-dom";
-import ChatArea from "../components/chat/chat-area/chatArea";
 import ConversationsBar from "../components/layout/conversationBar/conversationsBar";
 import NavBar from "../components/layout/navbar/navBar";
 import '../styles/global.css'

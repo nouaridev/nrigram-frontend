@@ -7,6 +7,7 @@ import Message from "./message/Message";
 
 import svg from "../../../assets/illustrations/sayhi.svg";
 import newMessageSound from "../../../assets/sounds/newMessage.mp3";
+import messagesend from "../../../assets/sounds/messagesend.mp3";
 import TypingSound from '../../../assets/sounds/typing.mp3'
 
 import styles from "./chatarea.module.css";
@@ -20,6 +21,7 @@ import { checkConversation, fastScroll, getMessages, getUser, joinConvetsation, 
 
 export default function NewChatArea() {
   const { play } = useSound(newMessageSound);
+  const { play:playSendMessage } = useSound(messagesend);
   const { play:playTyping ,stop:stopTyping} = useSound(TypingSound,{
     loop: true 
   });
@@ -60,7 +62,11 @@ export default function NewChatArea() {
     console.log(msg);
     setMessages((old) => [...old, msg]);
     setScrollBehave("smooth");
-    play();
+    if(msg.sender._id != auth.user.id){
+        play();
+    }else{
+        playSendMessage();
+    }
     console.log(messages);
   });
 
@@ -145,6 +151,7 @@ export default function NewChatArea() {
   useEffect(() => {
     smoothScroll();
     if(isTyping == true){
+      stopTyping()
       playTyping()
     }else {
       stopTyping()
