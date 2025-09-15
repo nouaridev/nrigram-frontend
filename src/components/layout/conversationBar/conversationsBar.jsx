@@ -1,37 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
 import ConversationCard from "./conversationsCard";
 import { useAuth } from "../../../contexts/athContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 import styles from './conversationsbar.module.css' ; 
 import api from "../../../services/api";
+import { useConversations } from "../../../contexts/conversationContext";
+import { getConversations } from "../../../services/conversationServices";
 export default function ConversationsBar(){
   const [auth , setAuth] = useAuth(); 
-  const [conversations , setConversations] = useState([]); 
+  const [state ,dispatch] = useConversations()
   useEffect(()=>{
-    const getConversations = async()=>{
-      try {
-        let res = await api.get('/main/conversations', {
-          headers:{
-            Authorization: 'Bearer '+ auth.token
-          }
-        }) ;
-        if(res.status == 200){
-          setConversations(res.data.conversations) ;
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getConversations() ;
+    getConversations(dispatch , state);
   },[])
 
   const conversationPrint = useMemo(()=>{
-    let convrs = conversations.map(e=>{
-      return <ConversationCard key={e._id} conversation={e}></ConversationCard>
+    let convrs = state.conversations.map(e=>{
+      return <motion.div key={e._id} layout transition={{ duration: 0.3, ease: "easeInOut" }} >
+        <ConversationCard key={e._id}  conversation={e}></ConversationCard>
+      </motion.div>
     })
     return convrs
-  },[conversations])
-  // get conversations : 
+  },[state.conversations])
 
     return <div className={styles.conversationBar}>
           <div className={styles.buttonGroup}>

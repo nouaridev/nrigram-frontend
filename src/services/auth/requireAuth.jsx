@@ -4,10 +4,12 @@ import cookies from 'js-cookies';
 import { useEffect, useState } from "react";
 import PageLoader from "../../components/layout/pageLoader";
 import api from "../api";
+import { useConversations } from "../../contexts/conversationContext";
 
 export default function RequireAuth(){
     let location = useLocation() ;
     const [auth, setAuth] = useAuth(); 
+    const [state ,dispatch] = useConversations() ; 
     const token = cookies.getItem('token');
     const [loading ,setload] = useState(true)
     if(!token || token == ''){
@@ -31,6 +33,7 @@ export default function RequireAuth(){
                         }
                     })
                     cookies.setItem('token' ,res.data.token) ; 
+                    dispatch({type: 'setAuth' , payload: {auth:{token : res.data.token , user: res.data.user }}})
                 }
                 setload(false)
             } catch (error) {

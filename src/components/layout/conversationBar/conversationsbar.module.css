@@ -41,6 +41,9 @@
         max-height: 100%;
         overflow-y: auto;
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        transition: 1s all ease;
     }
             /* Chrome, Edge, Safari */
     .conversations::-webkit-scrollbar {

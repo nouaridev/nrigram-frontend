@@ -1,6 +1,6 @@
 import { useAuth } from '../../../../contexts/athContext'
 import styles from './message.module.css'
-export default function Message({ pfp,content , time, sender}){
+export default function Message({ content , time, sender}){
     const [auth ,setAth] = useAuth() ;
     
     return <div className={sender.type == 'other'? styles.external : styles.local}>

@@ -1,94 +1,58 @@
-import { useAuth } from "../../../contexts/athContext";
-import { useSound } from "react-sounds";
+// react  & router & css
+import { useEffect, useMemo } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./chatarea.module.css";
 
+// components & images
 import ConversationNav from "./conversationNav/conversationNav";
 import ConversationInput from "./conversationInputs/ConversationInputs";
 import Message from "./message/Message";
-
+import Typing from "./typingIndicator";
 import svg from "../../../assets/illustrations/sayhi.svg";
-import newMessageSound from "../../../assets/sounds/newMessage.mp3";
-import messagesend from "../../../assets/sounds/messagesend.mp3";
+
+// soudns
+import { useSound } from "react-sounds";
 import TypingSound from '../../../assets/sounds/typing.mp3'
 
-import styles from "./chatarea.module.css";
-import { data, useParams } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+// services
+import {  fastScroll ,
+   handleCoversationChange,
+    handleUserChange,
+     smoothScroll} from "../../../services/conversationServices";
+
+// custom hooks
+import { useConversations } from "../../../contexts/conversationContext";
+import { useAuth } from "../../../contexts/athContext";
 import { useLoader } from "../../../contexts/loaderContext";
 
-import { useSocket } from "../../../contexts/socketIo";
-import Typing from "./typingIndicator";
-import { checkConversation, fastScroll, getMessages, getUser, joinConvetsation, smoothScroll, trigerUserChange } from "../../../services/conversationServices";
-
 export default function NewChatArea() {
-  const { play } = useSound(newMessageSound);
-  const { play:playSendMessage } = useSound(messagesend);
+  const [state , dispatch] = useConversations();
+  const [auth, setAth] = useAuth();
+  const [loading , setLoading] = useLoader(); 
   const { play:playTyping ,stop:stopTyping} = useSound(TypingSound,{
     loop: true 
   });
-  const [recipient, setRecipient] = useState(null);
-  const [auth, setAth] = useAuth();
-  const [loading, setLoading] = useLoader();
-  const { userid } = useParams();
+  const {userid} = useParams();
 
-  // conversatoin:
-  const [scrollBehave, setScrollBehave] = useState("fast");
-  const [messages, setMessages] = useState([]);
-  const socket = useSocket();
-  const [openedConversation, setOpenedConversatoin] = useState(null);
-  const [isTyping, setIsTyping] = useState(false);
 
-  
-  
-
-  
-  
+  useEffect(()=>{
+      dispatch({type: 'setOUI' , payload: {userId: userid}})
+  },[userid])
 
   useEffect(() => {
-    console.log("user changed");
-    getUser([loading, setLoading],setRecipient,userid , auth);
-    trigerUserChange(setMessages , setOpenedConversatoin , userid , auth);
-  }, [userid]);
-
+    if(state.openedUserId){
+      console.log("user changed");
+      setLoading(true)
+      handleUserChange(dispatch ,state)
+    }
+  }, [state.openedUserId]);
+  
   useEffect(() => {
-    console.log("conversation changed");
-    if (openedConversation) {
-      joinConvetsation(openedConversation , socket);
-      getMessages(openedConversation ,auth , setScrollBehave , setMessages);
-    } else {
-      console.log("ssd");
-    }
-
-  socket.on("recieveMessage", (msg) => {
-    console.log(msg);
-    setMessages((old) => [...old, msg]);
-    setScrollBehave("smooth");
-    if(msg.sender._id != auth.user.id){
-        play();
-    }else{
-        playSendMessage();
-    }
-    console.log(messages);
-  });
-
-  socket.on("writing", (e) => {
-    if(recipient){
-      if (e.userId == recipient._id && e.isTyping == true) {
-        setIsTyping(true);
-      }
-      if (e.userId == recipient._id && e.isTyping == false) {
-        setIsTyping(false);
-      }
-    }
-  });
-
-  return () => {
-    socket.off("recieveMessage");
-    socket.off("writing");
-  };
-  }, [openedConversation]);
+    handleCoversationChange(dispatch , state );
+  }, [state.openedConversation]);
 
   const messagesPrint = useMemo(() => {
-    let msgs = messages.map((e) => {
+    let msgs = state.openedConversationMessages.map((e) => {
       const weekdays = [
         "Sunday",
         "Monday",
@@ -142,51 +106,51 @@ export default function NewChatArea() {
       }
     });
     return msgs;
-  }, [messages]);
+  }, [state.openedConversationMessages]);
 
   useEffect(() => {
-    scrollBehave == "fast" ? fastScroll() : smoothScroll();
+    state.conversationScrollMod == "fast" ? setTimeout(()=>fastScroll(),[250]) : smoothScroll();
+    setTimeout(()=>{
+      setLoading(false)
+    },[250])
   }, [messagesPrint]);
 
   useEffect(() => {
     smoothScroll();
-    if(isTyping == true){
+    if(state.openedConversationIsTyping == true){
       stopTyping()
       playTyping()
     }else {
       stopTyping()
     }
-  }, [isTyping]);
+  }, [state.openedConversationIsTyping]);
 
   return (
-    recipient && (
+    state.openedUser && !loading && (
       <div className={styles.chatArea}>
         <div className={styles.conversationOpened}>
-          <ConversationNav user={recipient}></ConversationNav>
-          {openedConversation && messagesPrint ? (
+          <ConversationNav user={state.openedUser}></ConversationNav>
+          {state.openedConversation && messagesPrint ? (
             <div
               id="conversationMessages"
               className={styles.conversationMessages}
             >
               {messagesPrint}
-              {isTyping ? <Typing pfp={recipient.pfpUrl}></Typing> : ""}
+              {state.openedConversationIsTyping ? <Typing pfp={state.openedUser.pfpUrl}></Typing> : ""}
             </div>
           ) : (
             <div className={styles.newChatArea}>
               <div className={styles.content}>
                 <img src={svg} alt="" />
                 <h1>
-                  there is no messages beetween u and {recipient.userName} !
+                  there is no messages beetween u and {state.openedUser.userName} !
                 </h1>
                 <h2> you can say hi to him righ now</h2>
               </div>
             </div>
           )}
 
-          <ConversationInput
-            conversationState={[openedConversation, setOpenedConversatoin]}
-            recipientId={userid}
-          ></ConversationInput>
+          <ConversationInput></ConversationInput>
         </div>
       </div>
     )
