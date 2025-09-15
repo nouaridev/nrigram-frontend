@@ -105,11 +105,10 @@
     .conversationcard .center .username{
     font-size: 12px;
     font-weight: bold;
-    
     }
     .conversationcard .center .lastmessage{
     font-size: 10px;
-    font-weight: 200;
+    font-weight: 400;
     color: var(--secondary-bg-gray);
     overflow: hidden;
     white-space: nowrap;

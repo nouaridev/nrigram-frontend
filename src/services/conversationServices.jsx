@@ -94,10 +94,13 @@ import api from "./api";
         let messages = await getMessages(state);
         if(state.openedConversation){
           let conversation = state.conversations.find(e=>e._id == state.openedConversation);
-          if(conversation.lastMessage.sender._id != state.auth.user.id && !conversation.lastMessage.readBy.includes(state.auth.user.id)){
+          if(conversation){
+            if(conversation.lastMessage.sender._id != state.auth.user.id && !conversation.lastMessage.readBy.includes(state.auth.user.id)){
             markAsRead(dispatch, state.socket ,state.openedConversation,state.auth.user.id)
-          }  
+          }
+          }
         }
+        console.log(state.openedConversation)
         if(messages){
           dispatch({type: 'setOCM' , payload:{msgs: messages}})
           dispatch({type: 'setCSM' , payload:{mod: 'fast'}})
@@ -141,15 +144,11 @@ import api from "./api";
 
 // messaging input : 
   
-  export const sendMessage = async (dispatch ,state ,inputValue ,setInputValue) => {
+  export const sendMessage = async (dispatch ,state ,form) => {
     try {
-      if(!inputValue || inputValue === ''){return} 
       let res =await api.post(
         "/main/messages",
-        {
-          content : inputValue ,
-          recipientId: state.openedUserId
-        },
+        form,
         {
           headers: {
             Authorization: "Bearer " + state.auth.token,
@@ -160,14 +159,16 @@ import api from "./api";
       if(res.status == 200){
         if(!state.openedConversation){
           dispatch({type: 'setOC' , payload: {id: res.data.message.conversation}})
+          let conversation = state.conversations.find(e=>e._id == res.data.message.conversation);
+          if(!conversation){
+            getConversation(dispatch ,state ,res.data.message.conversation);
+          }
         }
       }
       
     } catch (error) {
       console.log(error);
-    } finally{
-      setInputValue('')
-    }
+    } 
   };
 
   export const typing = (state)=>{
@@ -200,6 +201,7 @@ import api from "./api";
           }
         }) ;
         if(res.status == 200){
+          console.log(res.data.conversation)
           dispatch({type: 'addCS' , payload: {conversations: res.data.conversation }})
         }
       } catch (error) {

@@ -24,12 +24,16 @@ export default function ConversationCard({conversation}) {
       }
     },[conversation])
   
-
+    let content 
+    let NewMessage 
+    if(conversation.lastMessage){
+      content = conversation.lastMessage.img && conversation.lastMessage.content == '' ? 'sent a picture':conversation.lastMessage.content
+      NewMessage = conversation.lastMessage.readBy.length==0 && conversation.lastMessage.sender._id != auth.user.id && conversation._id != state.openedConversation;
+    }
     const openConversation = ()=>{
       navigate('/chat/'+participant._id)
     }
 
-    const NewMessage = conversation.lastMessage.readBy.length==0 && conversation.lastMessage.sender._id != auth.user.id && conversation._id != state.openedConversation;
 
   return (
     <div className={styles.conversationcard} style={{backgroundColor: NewMessage?'var(--seconday-bg-gray)':''}} id={`conversationCard${conversation._id}`} onClick={openConversation}>
@@ -39,7 +43,7 @@ export default function ConversationCard({conversation}) {
       </div>
       <div className={styles.center}>
         <div className={styles.username}>{participant.userName}</div>
-        <div className={styles.lastmessage}>{conversation.lastMessage.sender._id == auth.user.id ? "you: " + conversation.lastMessage.content:conversation.lastMessage.content}</div>
+        <div className={styles.lastmessage}>{conversation.lastMessage.sender._id == auth.user.id ? "you: " +content: participant.userName.split(' ')[0]+ ": "+ content}</div>
       </div>
       <div className={styles.right}>
         {!conversation.lastMessage.readBy.length == 0 && conversation.lastMessage.sender._id == auth.user.id &&  <div className={styles.read}><FontAwesomeIcon className={styles.readIcon} icon={faCheckDouble} /></div>}

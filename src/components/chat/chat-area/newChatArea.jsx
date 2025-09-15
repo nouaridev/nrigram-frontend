@@ -1,5 +1,5 @@
 // react  & router & css
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./chatarea.module.css";
 
@@ -29,6 +29,7 @@ export default function NewChatArea() {
   const [state , dispatch] = useConversations();
   const [auth, setAth] = useAuth();
   const [loading , setLoading] = useLoader(); 
+  const [showImg , setShowImg] = useState(false);
   const { play:playTyping ,stop:stopTyping} = useSound(TypingSound,{
     loop: true 
   });
@@ -52,7 +53,7 @@ export default function NewChatArea() {
   }, [state.openedConversation]);
 
   const messagesPrint = useMemo(() => {
-    let msgs = state.openedConversationMessages.map((e) => {
+    let msgs = state.openedConversationMessages.map((e ,index) => {
       const weekdays = [
         "Sunday",
         "Monday",
@@ -91,16 +92,22 @@ export default function NewChatArea() {
             key={e._id}
             content={e.content}
             time={date}
+            lastOne={state.openedConversationMessages.length == index+1?true : false}
+            img={e.img}
             sender={{ type: "local", pfp: e.sender.pfpUrl }}
-          ></Message>
-        );
-      } else {
-        return (
-          <Message
+            setShowImg={(i)=>setShowImg(i)}
+            ></Message>
+          );
+        } else {
+          return (
+            <Message
             key={e._id}
+            lastOne={state.openedConversationMessages.length == index+1?true : false}
             content={e.content}
+            img={e.img}
             time={date}
             sender={{ type: "other", pfp: e.sender.pfpUrl }}
+            setShowImg={(i)=>setShowImg(i)}
           ></Message>
         );
       }
@@ -128,6 +135,11 @@ export default function NewChatArea() {
   return (
     state.openedUser && !loading && (
       <div className={styles.chatArea}>
+          {showImg != '' &&  (
+            <div className={styles.showImg} onClick={() => setShowImg(false)}>
+              <img src={showImg} alt="" />
+            </div>
+          )}
         <div className={styles.conversationOpened}>
           <ConversationNav user={state.openedUser}></ConversationNav>
           {state.openedConversation && messagesPrint ? (

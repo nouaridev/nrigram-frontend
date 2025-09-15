@@ -7,6 +7,7 @@ import newMessageSound from "../assets/sounds/newMessage.mp3";
 import messagesend from "../assets/sounds/messagesend.mp3";
 import { useSound } from "react-sounds";
 import {  getConversation, markAsRead } from "../services/conversationServices";
+import Message from "../components/chat/chat-area/message/Message";
 
 const socketContext = createContext(null) ; 
 export const useSocket = ()=>{
@@ -39,6 +40,7 @@ export default function SocketProvider({children}){
         }); 
 
             newSocket.on("recieveMessage", (msg) => {
+                console.log(msg)
                 if(msg.conversation == openedConversationRef.current){
                     dispatch({type: 'addOCM' , payload: {msgs: msg}})  
                     dispatch({type: 'setCSM' , payload: {mod: 'smooth'}}) 
@@ -55,9 +57,22 @@ export default function SocketProvider({children}){
                 
                 if(msg.sender._id != auth.user.id){
                     play();
+                    if(Notification.permission == "granted"){
+                        let content ; 
+                        console.log(msg.sender)
+                        if(msg.constent != ''){
+                            content = msg.content;
+                        }else{content= msg.content}
+                        console.log(content)
+                        new Notification( `${msg.sender.userName}`,{
+                            body: content,
+                            icon: msg.sender.pfpUrl
+                        })
+                    }
                 }else{
                     playSendMessage();
                 }
+         
             });
         
             newSocket.on('onlineStatus', ({conversationId , userId, online})=>{

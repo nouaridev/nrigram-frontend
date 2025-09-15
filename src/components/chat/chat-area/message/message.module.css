@@ -52,6 +52,22 @@
     flex-direction: column;
     align-items: flex-end;
 }
+.local .image , .external .image{
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 10px;
+    border-radius: 9px;
+    max-width: 200px;
+    max-height: 300px;
+    object-fit: cover;
+    white-space: wrap;
+    overflow-wrap: break-word;
+    transition: 0.3 ease all; 
+}
+.local .image:hover , .external .image:hover{
+    transform: scale(1.01)  rotateZ(-1deg);
+    box-shadow: 0 0 3px 3px var(--primary-blue);
+}
 
 
 /* HTML: <div class="loader"></div> */
