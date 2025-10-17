@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { conversationReducer ,initialState } from "../services/conversationReducer";
-import { useAuth } from "./athContext";
-import { useSocket } from "./socketIo";
+
 
 const conversationContext = createContext({});
 

@@ -1,0 +1,219 @@
+:root{
+    --primary-blue: #5D17EB;
+    --secondary-blue: #6C63FF;
+    --secondary-text-gray: #B0B0B0;
+    --primary-bg-gray: #F0F0F0 ;  
+    --seconday-bg-gray: #DDDFFF ; 
+    --white-bg: #FDFDFD;
+    --orange: #FFC423 ;
+    --green: #23FF52;    
+    --balck: #000000;
+    --red: #FF5050;
+    --medium-blue: #3F3D56; 
+
+}
+
+.ProfilePreviewContainer{
+    background-color: var(--white-bg);
+    padding: 10px;
+    border-radius: 19px; 
+    box-shadow: 0 0 5px  var(--secondary-text-gray);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex: 1;
+    transition: .3s all;
+}
+.ProfilePreviewContainer:hover{
+    box-shadow: 0 0 5px var(--secondary-text-gray);
+    transform: scale(1.005);
+}
+.ProfilePreviewContainer .contentArea{
+    overflow: hidden;
+    background-color: white;
+    padding: 30px 40px 30px 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+            /* Chrome, Edge, Safari */
+.ProfilePreviewContainer .contentArea::-webkit-scrollbar {
+        width: 0px; 
+    }
+
+.ProfilePreviewContainer .contentArea::-webkit-scrollbar-track {
+        background: transparent; 
+    }
+
+.ProfilePreviewContainer .contentArea::-webkit-scrollbar-thumb {
+        background-color: transparent; 
+        border-radius: 10px;
+        border: 2px solid transparent; 
+    }
+
+.ProfilePreviewContainer .contentArea .Header{
+    padding: 0 0 10px;
+    border-bottom: 2px dotted var(--primary-bg-gray);
+}
+.ProfilePreviewContainer .contentArea .Header h1{
+    font-size: 25px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+.ProfilePreviewContainer .contentArea .Header p{
+    font-weight: bold; 
+    font-size: 11px;
+    color: var(--secondary-text-gray);
+}
+
+.ProfilePreviewContainer .contentArea .mainContent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0 0;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.ProfilePreviewContainer .contentArea .mainContent .left{
+    background-color: var(--seconday-bg-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 19px;
+    text-align: center;
+    height: fit-content;
+    flex: 1 1 250px; /* grow | shrink | basis */
+    min-width: 250px; /* don't go smaller than this */
+    width: 100%;
+}
+
+            /* Chrome, Edge, Safari */
+textarea::-webkit-scrollbar {
+        width: 0px; 
+    }
+
+textarea::-webkit-scrollbar-track {
+        background: transparent; 
+    }
+
+textarea::-webkit-scrollbar-thumb {
+        background-color: transparent; 
+        border-radius: 10px;
+        border: 2px solid transparent; 
+    }
+
+
+.ProfilePreviewContainer .contentArea .mainContent .left .upload{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50%;
+    background-color: beige;
+    position: relative;
+}
+.ProfilePreviewContainer .contentArea .mainContent .left .pfpHolder img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.ProfilePreviewContainer .contentArea .mainContent .left .pfpHolder{
+    overflow: hidden;
+    position: relative;
+    width: 250px;
+    aspect-ratio: 1/1;    
+    object-fit: cover;
+    border: 6px solid var(--secondary-blue);
+    border-radius: 50%;
+}
+.ProfilePreviewContainer  .contentArea .mainContent .left .upload .cameraHolder{
+    padding: 5px 07px;
+    background-color: var(--secondary-blue);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1;
+    border-radius: 50%;
+    transition: .3s all;
+    cursor: pointer;
+}
+.ProfilePreviewContainer  .contentArea .mainContent .left .upload .cameraHolder:hover{
+    transform: scale(1.1);
+}
+.ProfilePreviewContainer .contentArea .mainContent .left .upload .cameraHolder .camera{
+    color: var(--white-bg);
+    font-size: 15px;
+}
+.ProfilePreviewContainer .contentArea .mainContent .right{
+    background-color: var(--seconday-bg-gray);
+    padding: 20px;
+    border-radius: 19px;
+    flex: 2 1 250px; /* grow | shrink | basis */
+    min-width: 250px; /* don't go smaller than this */
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.ProfilePreviewContainer .contentArea .mainContent .right .sectionContent{
+    padding: 10px ;
+    height: 100%; 
+}
+.ProfilePreviewContainer .contentArea .mainContent .right .sectionContent form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.ProfilePreviewContainer .contentArea .mainContent .right form div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.ProfilePreviewContainer .contentArea .mainContent .right form div label{
+    font-size: 14px;
+    color: var(--medium-blue);
+    padding: 5px;
+}
+
+.ProfilePreviewContainer .contentArea .mainContent .right .sectionContent input ,textarea{
+    background-color: var(--white-bg);
+    border-radius: 9px;
+    padding: 10px 20px;
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 100px;
+    font-size: 14px;
+}
+textarea{
+    min-height: 100px;
+}
+.mainContentHolder{
+    display: flex;
+    flex-direction: column;
+
+}
+.submitButton{
+    background-color: var(--primary-blue);
+    color: var(--white-bg);
+    padding: 5px 20px ;
+    border-radius: 9px ;
+    margin: 30px auto; 
+    cursor: pointer;
+    transition: .3s all ; 
+}
+
+.submitButton:hover{
+    transform: scale(1.05);
+    background-color: var(--secondary-blue)
+}

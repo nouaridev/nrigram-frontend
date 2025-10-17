@@ -1,0 +1,49 @@
+:root{
+    --primary-blue: #5D17EB;
+    --secondary-blue: #6C63FF;
+    --secondary-text-gray: #B0B0B0;
+    --primary-bg-gray: #F0F0F0 ;  
+    --seconday-bg-gray: #DDDFFF ; 
+    --white-bg: #FDFDFD;
+    --orange: #FFC423 ;
+    --green: #23FF52;    
+    --balck: #000000;
+    --red: #FF5050;
+    --medium-blue: #3F3D56; 
+}
+
+.sideBar{
+    background-color: var(--white-bg);
+    box-shadow: 0 0 10px var(--secondary-text-gray);
+    position: absolute ;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+    border-radius: 19px;
+    padding: 20px 10px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    transition: .3s all;
+}
+.sideBar:hover{ 
+    transform:translateY(-50%) scale(1.1);
+}
+
+.sideBar .iconHolder{
+    background-color: var(--seconday-bg-gray);
+    padding: 5px 10px;
+    border-radius: 9px;
+    transition: 0.3s all ; 
+}
+.sideBar .iconHolder:hover{
+    background-color: var(--secondary-text-gray); 
+    transform: scale(1.1);
+}
+
+
+.sideBar .iconHolder .logout{
+    color: var(--red);
+}

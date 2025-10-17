@@ -5,6 +5,7 @@ import AuthProvider from './contexts/athContext.jsx'
 import LoadingProvider from './contexts/loaderContext.jsx'
 import SocketProvider from './contexts/socketIo.jsx'
 import ConversationProvider from './contexts/conversationContext.jsx'
+import ProfileProvider from './contexts/profileContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <AuthProvider>
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')).render(
       <SocketProvider >
       <LoadingProvider>
               <BrowserRouter>
+              <ProfileProvider>
                 <App />
+              </ProfileProvider>
               </BrowserRouter>
       </LoadingProvider>
       </SocketProvider>

@@ -1,4 +1,4 @@
-import { createContext, use, useContext, useEffect, useRef, useState } from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
 import io from 'socket.io-client'
 import { useConversations } from "./conversationContext";
 import { useAuth } from "./athContext";
@@ -7,7 +7,6 @@ import newMessageSound from "../assets/sounds/newMessage.mp3";
 import messagesend from "../assets/sounds/messagesend.mp3";
 import { useSound } from "react-sounds";
 import {  getConversation, markAsRead } from "../services/conversationServices";
-import Message from "../components/chat/chat-area/message/Message";
 
 const socketContext = createContext(null) ; 
 export const useSocket = ()=>{
