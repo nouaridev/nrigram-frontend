@@ -9,6 +9,7 @@ import NewChatArea from './components/chat/chat-area/newChatArea'
 import ProfilePage from './pages/ProfilePage'
 import ProfilePreview from './components/profilePages/profilePreview/ProfilePreview'
 import EditProfile from './components/profilePages/editProfile/EditProfile'
+import Security from './components/profilePages/security/SecurityPage'
 function App() {
   return (
     <Routes>
@@ -22,6 +23,7 @@ function App() {
           <Route path='/profile' element={<ProfilePage></ProfilePage>} >
             <Route index  element={<ProfilePreview></ProfilePreview>}></Route>
             <Route path='edit' element={<EditProfile></EditProfile>}></Route>
+            <Route path='security' element={<Security></Security>}></Route>
           </Route>
       </Route>
     </Routes>

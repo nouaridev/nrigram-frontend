@@ -9,12 +9,14 @@ import FormInput from '../../common/FormInput/FormInput';
 import api from '../../../services/api';
 import { useLoader } from '../../../contexts/loaderContext';
 import Loader from '../../layout/loader';
+import { useNavigate } from 'react-router-dom';
 export default function EditProfile(props){
     const [auth ,setAth] = useAuth()
     const [pfData ,setPfData] = usePfData(); 
     const [pfp ,  setPfp] = useState(''); 
 
     const [loading ,setLoading] = useLoader();
+    const navigate = useNavigate();
 
     const [name, setName] = useState('')
     const [userName, setUserName] = useState('')
@@ -48,6 +50,7 @@ export default function EditProfile(props){
                     'Authorization': 'Bearer ' + auth?.token 
                 }
             })
+            navigate(0);
             setLoading(false)
         } catch (error) {
             console.log(error)

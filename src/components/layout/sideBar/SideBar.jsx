@@ -21,7 +21,7 @@ export default function SideBar(){
                 <FontAwesomeIcon className={styles.icon}   style={pfData.sideBarOption=='edit'?{color: 'var(--primary-blue)'}:{color: 'var(--medium-blue)'}} icon={faUserPen} />
             </div>
         </Link>
-        <Link to='/profile'>
+        <Link to='/profile/security'>
             <div className={styles.iconHolder} onClick={()=>{changeOption('security')}}>
                 <FontAwesomeIcon className={styles.icon}  style={pfData.sideBarOption=='security'?{color: 'var(--primary-blue)'}:{color: 'var(--medium-blue)'}} icon={faKey} />
             </div>
