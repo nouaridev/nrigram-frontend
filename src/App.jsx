@@ -10,6 +10,8 @@ import ProfilePage from './pages/ProfilePage'
 import ProfilePreview from './components/profilePages/profilePreview/ProfilePreview'
 import EditProfile from './components/profilePages/editProfile/EditProfile'
 import Security from './components/profilePages/security/SecurityPage'
+import ProfilePrivacy from './components/profilePages/profilePrivacy/ProfilePrivacy'
+import Appearance from './components/profilePages/appearance/Appearance'
 function App() {
   return (
     <Routes>
@@ -24,6 +26,8 @@ function App() {
             <Route index  element={<ProfilePreview></ProfilePreview>}></Route>
             <Route path='edit' element={<EditProfile></EditProfile>}></Route>
             <Route path='security' element={<Security></Security>}></Route>
+            <Route path='privacy' element={<ProfilePrivacy></ProfilePrivacy>}></Route>
+            <Route path='appearance' element={<Appearance></Appearance>}> </Route>
           </Route>
       </Route>
     </Routes>

@@ -26,12 +26,12 @@ export default function SideBar(){
                 <FontAwesomeIcon className={styles.icon}  style={pfData.sideBarOption=='security'?{color: 'var(--primary-blue)'}:{color: 'var(--medium-blue)'}} icon={faKey} />
             </div>
         </Link>
-        <Link to='/profile'>
+        <Link to='/profile/privacy'>
             <div className={styles.iconHolder} onClick={()=>{changeOption('privacy')}}>
                 <FontAwesomeIcon className={styles.icon}  style={pfData.sideBarOption=='privacy'?{color: 'var(--primary-blue)'}:{color: 'var(--medium-blue)'}} icon={faUserShield} />
             </div>
         </Link>
-        <Link to='/profile'>
+        <Link to='/profile/appearance'>
             <div className={styles.iconHolder} onClick={()=>{changeOption('theme')}}>
                 <FontAwesomeIcon className={styles.icon}  style={pfData.sideBarOption=='theme'?{color: 'var(--primary-blue)'}:{color: 'var(--medium-blue)'}} icon={faPalette} />
             </div>

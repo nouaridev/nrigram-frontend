@@ -186,7 +186,7 @@ textarea::-webkit-scrollbar-thumb {
     padding: 5px;
 }
 
-.ProfilePreviewContainer .contentArea .mainContent .right .sectionContent input ,textarea{
+.ProfilePreviewContainer .contentArea .mainContent .right .sectionContent input ,.ProfilePreviewContainer .contentArea .mainContent .right .sectionContent textarea{
     background-color: var(--white-bg);
     border-radius: 9px;
     padding: 10px 20px;
@@ -195,7 +195,7 @@ textarea::-webkit-scrollbar-thumb {
     max-height: 100px;
     font-size: 14px;
 }
-textarea{
+.ProfilePreviewContainer .contentArea .mainContent .right .sectionContent textarea{
     min-height: 100px;
 }
 .mainContentHolder{
